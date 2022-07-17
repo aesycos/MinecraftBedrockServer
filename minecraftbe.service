@@ -4,10 +4,10 @@ After=network-online.target
 
 [Service]
 User=userxname
-WorkingDirectory=dirname/minecraftbe/servername
+WorkingDirectory=dirname/minecraft/servername
 Type=forking
-ExecStart=/bin/bash dirname/minecraftbe/servername/start.sh
-ExecStop=/bin/bash dirname/minecraftbe/servername/stop.sh
+ExecStart=/bin/bash dirname/minecraft/servername/start.sh
+ExecStop=/bin/bash dirname/minecraft/servername/stop.sh
 GuessMainPID=no
 TimeoutStartSec=600
 
