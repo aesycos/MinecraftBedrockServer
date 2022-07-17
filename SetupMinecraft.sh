@@ -294,7 +294,7 @@ Check_Dependencies
 
 # Get directory path (default /var/www)
 until [ -d "$DirName" ]; do
-  echo "Enter root installation path for Minecraft BE (this is the same for ALL servers and should be /var/www, the subfolder will be chosen from the server name you provide). Almost nobody should change this unless you're installing to a different disk altogether. (default ~): "
+  echo "Enter root installation path for Minecraft BE (this is the same for ALL servers and should be /var/www, the subfolder will be chosen from the server name you provide). Almost nobody should change this unless you're installing to a different disk altogether. (default /var/www): "
   read_with_prompt DirName "Directory Path" /var/www
   DirName=$(eval echo "$DirName")
   if [ ! -d "$DirName" ]; then
@@ -322,7 +322,7 @@ fi
 
 # Server name configuration
 echo "Enter a short one word label for a new or existing server (don't use minecraft)..."
-echo "It will be used in the folder name and service name..."
+echo "It will be used in the folder name and service name... (default bedrock)"
 
 read_with_prompt ServerName "Server Label" bedrock
 
