@@ -1,5 +1,4 @@
 #!/bin/bash
-# James Chambers - https://jamesachambers.com/minecraft-bedrock-edition-ubuntu-dedicated-server-guide/
 # Minecraft Bedrock Server restart script
 
 # Set path variable
@@ -64,7 +63,7 @@ if screen -list | grep -q '\.servername\s'; then
 fi
 
 # Start server (start.sh) - comment out if you want to use systemd and have added a line to your sudoers allowing passwordless sudo for the start command using 'sudo visudo' and insert the example line below with the correct username
-#/bin/bash dirname/minecraftbe/servername/start.sh
+#/bin/bash dirname/minecraft/servername/start.sh
 
 # EXAMPLE SUDO LINE
 # minecraftuser ALL=(ALL) NOPASSWD: /bin/systemctl start yourservername
