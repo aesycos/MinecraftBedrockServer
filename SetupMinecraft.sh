@@ -292,7 +292,7 @@ fi
 
 Check_Dependencies
 
-# Get directory path (default ~)
+# Get directory path (default /var/www)
 until [ -d "$DirName" ]; do
   echo "Enter root installation path for Minecraft BE (this is the same for ALL servers and should be /var/www, the subfolder will be chosen from the server name you provide). Almost nobody should change this unless you're installing to a different disk altogether. (default ~): "
   read_with_prompt DirName "Directory Path" /var/www
