@@ -1,5 +1,4 @@
 #!/bin/bash
-# Minecraft Server Permissions Fix Script - James A. Chambers - https://jamesachambers.com/minecraft-bedrock-edition-ubuntu-dedicated-server-guide/
 
 # Takes ownership of server files to fix common permission errors such as access denied
 # This is very common when restoring backups, moving and editing files, etc.
@@ -35,19 +34,19 @@ while getopts ":a:" opt; do
   esac
 done
 
-echo "Taking ownership of all server files/folders in dirname/minecraftbe/servername..."
+echo "Taking ownership of all server files/folders in dirname/minecraft/servername..."
 if [[ $Automated == 1 ]]; then
-  sudo -n chown -R userxname dirname/minecraftbe/servername
-  sudo -n chmod -R 755 dirname/minecraftbe/servername/*.sh
-  sudo -n chmod 755 dirname/minecraftbe/servername/bedrock_server
-  sudo -n chmod +x dirname/minecraftbe/servername/bedrock_server
+  sudo -n chown -R userxname dirname/minecraft/servername
+  sudo -n chmod -R 755 dirname/minecraft/servername/*.sh
+  sudo -n chmod 755 dirname/minecraft/servername/bedrock_server
+  sudo -n chmod +x dirname/minecraft/servername/bedrock_server
 else
-  sudo chown -Rv userxname dirname/minecraftbe/servername
-  sudo chmod -Rv 755 dirname/minecraftbe/servername/*.sh
-  sudo chmod 755 dirname/minecraftbe/servername/bedrock_server
-  sudo chmod +x dirname/minecraftbe/servername/bedrock_server
+  sudo chown -Rv userxname dirname/minecraft/servername
+  sudo chmod -Rv 755 dirname/minecraft/servername/*.sh
+  sudo chmod 755 dirname/minecraft/servername/bedrock_server
+  sudo chmod +x dirname/minecraft/servername/bedrock_server
 
-  NewestLog=$(find dirname/minecraftbe/servername/logs -type f -exec stat -c "%y %n" {} + | sort -r | head -n1 | cut -d " " -f 4-)
+  NewestLog=$(find dirname/minecraft/servername/logs -type f -exec stat -c "%y %n" {} + | sort -r | head -n1 | cut -d " " -f 4-)
   if [ -z "$NewestLog" ]; then
     echo "No log files were found"
   else
