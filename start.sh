@@ -1,5 +1,4 @@
 #!/bin/bash
-# Author: James Chambers - https://jamesachambers.com/minecraft-bedrock-edition-ubuntu-dedicated-server-guide/
 # Minecraft Bedrock server startup script using screen
 
 # Set path variable
@@ -28,7 +27,7 @@ if screen -list | grep -q '\.servername\s'; then
 fi
 
 # Change directory to server directory
-cd dirname/minecraftbe/servername
+cd dirname/minecraft/servername
 
 # Create logs/backups/downloads folder if it doesn't exist
 if [ ! -d "logs" ]; then
@@ -64,23 +63,23 @@ while [ -z "$DefaultRoute" ]; do
 done
 
 # Take ownership of server files and set correct permissions
-Permissions=$(sudo bash dirname/minecraftbe/servername/fixpermissions.sh -a)
+Permissions=$(sudo bash dirname/minecraft/servername/fixpermissions.sh -a)
 
 # Create backup
 if [ -d "worlds" ]; then
-    echo "Backing up server (to minecraftbe/servername/backups folder)"
+    echo "Backing up server (to minecraft/servername/backups folder)"
     if [ -n "$(which pigz)" ]; then
-        echo "Backing up server (multiple cores) to minecraftbe/servername/backups folder"
+        echo "Backing up server (multiple cores) to minecraft/servername/backups folder"
         tar -I pigz -pvcf backups/$(date +%Y.%m.%d.%H.%M.%S).tar.gz worlds
     else
-        echo "Backing up server (single cored) to minecraftbe/servername/backups folder"
+        echo "Backing up server (single cored) to minecraft/servername/backups folder"
         tar -pzvcf backups/$(date +%Y.%m.%d.%H.%M.%S).tar.gz worlds
     fi
 fi
 
 # Rotate backups -- keep most recent 10
 Rotate=$(
-    pushd dirname/minecraftbe/servername/backups
+    pushd dirname/minecraft/servername/backups
     ls -1tr | head -n -10 | xargs -d '\n' rm -f --
     popd
 )
@@ -125,12 +124,12 @@ else
 
         # Install version of Minecraft requested
         if [ ! -z "$DownloadFile" ]; then
-            if [ ! -e dirname/minecraftbe/servername/server.properties ]; then
+            if [ ! -e dirname/minecraft/servername/server.properties ]; then
                 unzip -o "downloads/$DownloadFile" -x "*permissions.json*" "*whitelist.json*" "*valid_known_packs.json*" "*allowlist.json*"
             else
                 unzip -o "downloads/$DownloadFile" -x "*server.properties*" "*permissions.json*" "*whitelist.json*" "*valid_known_packs.json*" "*allowlist.json*"
             fi
-            Permissions=$(chmod u+x dirname/minecraftbe/servername/bedrock_server >/dev/null)
+            Permissions=$(chmod u+x dirname/minecraft/servername/bedrock_server >/dev/null)
             echo "$DownloadFile" >version_installed.txt
         fi
     elif [[ "$InstalledFile" == "$LatestFile" ]]; then
@@ -147,30 +146,30 @@ else
 
         # Install version of Minecraft requested
         if [ ! -z "$DownloadFile" ]; then
-            if [ ! -e dirname/minecraftbe/servername/server.properties ]; then
+            if [ ! -e dirname/minecraft/servername/server.properties ]; then
                 unzip -o "downloads/$DownloadFile" -x "*permissions.json*" "*whitelist.json*" "*valid_known_packs.json*" "*allowlist.json*"
             else
                 unzip -o "downloads/$DownloadFile" -x "*server.properties*" "*permissions.json*" "*whitelist.json*" "*valid_known_packs.json*" "*allowlist.json*"
             fi
-            Permissions=$(chmod u+x dirname/minecraftbe/servername/bedrock_server >/dev/null)
+            Permissions=$(chmod u+x dirname/minecraft/servername/bedrock_server >/dev/null)
             echo "$DownloadFile" >version_installed.txt
         fi
     fi
 fi
 
-if [ ! -e dirname/minecraftbe/servername/allowlist.json ]; then
+if [ ! -e dirname/minecraft/servername/allowlist.json ]; then
     echo "Creating default allowlist.json..."
-    echo '[]' > dirname/minecraftbe/servername/allowlist.json
+    echo '[]' > dirname/minecraft/servername/allowlist.json
 fi
-if [ ! -e dirname/minecraftbe/servername/permissions.json ]; then
+if [ ! -e dirname/minecraft/servername/permissions.json ]; then
     echo "Creating default permissions.json..."
-    echo '[]' > dirname/minecraftbe/servername/permissions.json
+    echo '[]' > dirname/minecraft/servername/permissions.json
 fi
 
 echo "Starting Minecraft server.  To view window type screen -r servername"
 echo "To minimize the window and let the server run in the background, press Ctrl+A then Ctrl+D"
 
-BASH_CMD="LD_LIBRARY_PATH=dirname/minecraftbe/servername dirname/minecraftbe/servername/bedrock_server"
+BASH_CMD="LD_LIBRARY_PATH=dirname/minecraft/servername dirname/minecraft/servername/bedrock_server"
 if command -v gawk &>/dev/null; then
     BASH_CMD+=$' | gawk \'{ print strftime(\"[%Y-%m-%d %H:%M:%S]\"), $0 }\''
 else
